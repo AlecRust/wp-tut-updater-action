@@ -37765,7 +37765,7 @@ async function getDefaultBranch(owner, repo) {
     return data.default_branch;
 }
 /**
- * Create a pull request with the changes.
+ * Create a pull request for the changes.
  */
 async function createPullRequest(branchName, wpVersion) {
     const title = `Update WordPress 'Tested up to' version to ${wpVersion}`;

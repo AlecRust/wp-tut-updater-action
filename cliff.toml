@@ -1,11 +1,11 @@
 [changelog]
 header = """
-### Changelog\n
+# Changelog\n
 All notable changes to this project will be documented in this file.
 """
 body = """
 {% if version %}\
-\n#### [{{ version }}](https://github.com/AlecRust/wp-tut-updater-action/releases/tag/{{ version }})\n
+\n## [{{ version }}](https://github.com/AlecRust/wp-tut-updater-action/releases/tag/{{ version }})\n
 > {{ timestamp | date(format="%-d %B %Y") | default(value="") }}\n
 {% for commit in commits %}\
 - {{ commit.message | split(pat="\n") | first | trim }} [`{{ commit.id | truncate(length=7, end="") }}`](https://github.com/AlecRust/wp-tut-updater-action/commit/{{ commit.id }})

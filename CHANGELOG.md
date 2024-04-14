@@ -1,8 +1,8 @@
-### Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
-#### [v1.0.0](https://github.com/AlecRust/wp-tut-updater-action/releases/tag/v1.0.0)
+## [v1.0.0](https://github.com/AlecRust/wp-tut-updater-action/releases/tag/v1.0.0)
 
 > 14 April 2024
 

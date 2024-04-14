@@ -66,7 +66,7 @@ async function getDefaultBranch(owner: string, repo: string): Promise<string> {
 }
 
 /**
- * Create a pull request with the changes.
+ * Create a pull request for the changes.
  */
 export async function createPullRequest(
   branchName: string,
