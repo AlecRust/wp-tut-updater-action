@@ -5,7 +5,7 @@ description:
 author: 'Alec Rust'
 
 branding:
-  icon: 'heart'
+  icon: 'corner-right-up'
   color: 'blue'
 
 inputs:
