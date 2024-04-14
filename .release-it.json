@@ -1,0 +1,22 @@
+{
+  "plugins": {
+    "@release-it/bumper": {
+      "out": ["README.md"]
+    }
+  },
+  "hooks": {
+    "before:init": "npm run all",
+    "after:bump": ["git-cliff -o CHANGELOG.md --tag v${version}"]
+  },
+  "git": {
+    "commitArgs": ["-S"],
+    "tagArgs": ["-s"]
+  },
+  "npm": {
+    "publish": false
+  },
+  "github": {
+    "release": true,
+    "releaseName": "${version}"
+  }
+}
