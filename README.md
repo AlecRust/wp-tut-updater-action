@@ -1,20 +1,29 @@
-# WordPress "Tested up to" Updater Action
+# WordPress "Tested up to" Updater
 
-[![GitHub Super-Linter](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
+[![Lint](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
 ![CI](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/ci.yml/badge.svg)
-[![Check dist/](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/check-dist.yml/badge.svg)](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/check-dist.yml)
 [![CodeQL](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml)
 
-Creates a pull request to update the "Tested up to" version of your WordPress
+> Automate "Tested up to" version updates in your WordPress projects.
+
+[GitHub Action](https://github.com/features/actions) that fetches the latest
+WordPress version then updates the "Tested up to" version of your WordPress
 plugin or theme if it's out of date.
+
+Run it based on a cron or manually via the Actions tab. Have the action create a
+pull request for you to review and merge, or allow it to commit directly to your
+default branch.
+
+Never forget to update the "Tested up to" version of your WordPress plugin or
+theme again!
 
 ## Example
 
-First, enable the "Allow GitHub Actions to create and approve pull requests"
+First enable the "Allow GitHub Actions to create and approve pull requests"
 option in your repository at **Settings > Actions > General**.
 
-Here's a basic example of running this action on a cron. `permissions` and
-`env.GITHUB_TOKEN` are required for the action to create a pull request.
+Below is a minimal example of running the action based on a cron. `permissions`
+and `env.GITHUB_TOKEN` are required for the action to create a pull request.
 
 `.github/workflows/tut-check.yml`:
 
@@ -29,14 +38,13 @@ permissions:
   pull-requests: write
 
 jobs:
-  tut-check:
-    name: Check for new "Tested up to" version
+  check-tested-up-to:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run wp-tut-updater-action
+      - name: Check for new "Tested up to" version
         uses: AlecRust/wp-tut-updater-action@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -45,7 +53,7 @@ jobs:
 **Note:** No need to create a new `GITHUB_TOKEN` secret, just ensure it's set as
 provided in the example.
 
-Optionally, you can specify paths to update which will override the default
+Optionally you can specify paths to update which will override the default
 `readme.txt` file:
 
 ```yaml
