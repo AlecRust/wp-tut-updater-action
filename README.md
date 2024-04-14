@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run wp-tut-updater-action
-        uses: AlecRust/wp-tut-updater-action@main
+        uses: AlecRust/wp-tut-updater-action@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -50,7 +50,7 @@ Optionally, you can specify paths to update which will override the default
 
 ```yaml
 - name: Run wp-tut-updater-action
-  uses: AlecRust/wp-tut-updater-action@main
+  uses: AlecRust/wp-tut-updater-action@v1.0.0
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
