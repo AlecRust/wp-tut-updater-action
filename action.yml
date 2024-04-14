@@ -1,4 +1,4 @@
-name: 'WP up to updater'
+name: 'WordPress "Tested up to" Updater Action'
 description:
   'Automatically updates the "Tested up to" strings in WordPress plugin files
   based on the latest versions of WordPress.'
