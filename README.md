@@ -1,5 +1,8 @@
-<!-- markdownlint-disable-next-line MD013 -->
+<!-- markdownlint-disable -->
+
 # WordPress "Tested up to" Updater [![Lint](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter) ![CI](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/ci.yml/badge.svg) [![CodeQL](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml)
+
+<!-- markdownlint-enable -->
 
 > Automate "Tested up to" version updates in your WordPress projects.
 
