@@ -11,19 +11,14 @@ plugin or theme if it's out of date.
 ## Usage
 
 First, enable the "Allow GitHub Actions to create and approve pull requests"
-option in your repository settings at **Actions > General**.
+option in your repository at **Settings > Actions > General**.
 
-Here's a basic example of running this action on a cron. Note that `permissions`
-and `env.GITHUB_TOKEN` are required for the action to create a pull request.
-
-**Note:** You shouldn't need to create a new `GITHUB_TOKEN` secret, just ensure
-it's set as provided in the example below.
+Here's a basic example of running this action on a cron. `permissions` and
+`env.GITHUB_TOKEN` are required for the action to create a pull request.
 
 `.github/workflows/weekly-tut-check.yml`:
 
 ```yaml
-name: Weekly "Tested up to" check
-
 on:
   schedule:
     - cron: '0 0 * * 0' # Every Sunday at midnight
@@ -47,6 +42,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+**Note:** No need to create a new `GITHUB_TOKEN` secret, just ensure it's set as
+provided in the example.
+
 Optionally, you can specify paths to update which will override the default
 `readme.txt` file:
 
@@ -60,6 +58,9 @@ Optionally, you can specify paths to update which will override the default
       readme.txt
       my-other-file.php
 ```
+
+Please note you should thoroughly test your plugin/theme with the new version of
+WordPress before publishing an updated "Tested up to" version.
 
 ## License
 
