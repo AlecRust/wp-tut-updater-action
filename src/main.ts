@@ -11,13 +11,14 @@ const git = simpleGit()
 export async function run(): Promise<void> {
   try {
     const workspace = process.env.GITHUB_WORKSPACE as string
+    const createPR = core.getInput('create-pr') === 'true'
     git.cwd(workspace)
 
     const filePathInput = core.getInput('file-paths')
     const filePaths = filePathInput
       .split(/\r?\n/)
       .filter(path => path.trim() !== '')
-    console.log('Paths to update:', filePaths)
+    console.log('Checking paths:', filePaths)
 
     const wpVersion = await getLatestWpVersion()
     const updated = await updateFiles(workspace, filePaths, wpVersion)
@@ -27,16 +28,26 @@ export async function run(): Promise<void> {
       return
     }
 
-    console.log('Updating files to WordPress version', wpVersion)
-    const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`
-    await git.addConfig('user.email', 'action@github.com')
-    await git.addConfig('user.name', 'GitHub Action')
-    await git.checkoutLocalBranch(branchName)
-    await git.add('.')
-    await git.commit(`Update WordPress 'Tested up to' version to ${wpVersion}`)
-    await git.push('origin', branchName, ['--set-upstream'])
+    console.log(`Updated to WordPress version ${wpVersion}`)
 
-    await createPullRequest(branchName, wpVersion)
+    if (createPR) {
+      const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`
+      await git.addConfig('user.email', 'action@github.com')
+      await git.addConfig('user.name', 'GitHub Action')
+      await git.checkoutLocalBranch(branchName)
+      await git.add('.')
+      await git.commit(
+        `Update WordPress 'Tested up to' version to ${wpVersion}`
+      )
+      await git.push('origin', branchName, ['--set-upstream'])
+      await createPullRequest(branchName, wpVersion)
+    } else {
+      await git.add('.')
+      await git.commit(
+        `Update WordPress 'Tested up to' version to ${wpVersion}`
+      )
+      await git.push()
+    }
 
     core.setOutput('updated', 'true')
   } catch (error) {

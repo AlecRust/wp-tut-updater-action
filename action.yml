@@ -12,6 +12,10 @@ inputs:
   file-paths:
     description: 'File paths where the "Tested up to" string should be updated.'
     default: 'readme.txt'
+  create-pr:
+    description:
+      'Flag setting if a pull request should be created for the changes.'
+    default: 'true'
 
 outputs:
   updated:

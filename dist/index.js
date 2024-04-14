@@ -37643,12 +37643,13 @@ const git = (0, simple_git_1.simpleGit)();
 async function run() {
     try {
         const workspace = process.env.GITHUB_WORKSPACE;
+        const createPR = core.getInput('create-pr') === 'true';
         git.cwd(workspace);
         const filePathInput = core.getInput('file-paths');
         const filePaths = filePathInput
             .split(/\r?\n/)
             .filter(path => path.trim() !== '');
-        console.log('Paths to update:', filePaths);
+        console.log('Checking paths:', filePaths);
         const wpVersion = await (0, utils_1.getLatestWpVersion)();
         const updated = await (0, utils_1.updateFiles)(workspace, filePaths, wpVersion);
         if (!updated) {
@@ -37656,15 +37657,22 @@ async function run() {
             core.setOutput('updated', 'false');
             return;
         }
-        console.log('Updating files to WordPress version', wpVersion);
-        const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`;
-        await git.addConfig('user.email', 'action@github.com');
-        await git.addConfig('user.name', 'GitHub Action');
-        await git.checkoutLocalBranch(branchName);
-        await git.add('.');
-        await git.commit(`Update WordPress 'Tested up to' version to ${wpVersion}`);
-        await git.push('origin', branchName, ['--set-upstream']);
-        await (0, utils_1.createPullRequest)(branchName, wpVersion);
+        console.log(`Updated to WordPress version ${wpVersion}`);
+        if (createPR) {
+            const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`;
+            await git.addConfig('user.email', 'action@github.com');
+            await git.addConfig('user.name', 'GitHub Action');
+            await git.checkoutLocalBranch(branchName);
+            await git.add('.');
+            await git.commit(`Update WordPress 'Tested up to' version to ${wpVersion}`);
+            await git.push('origin', branchName, ['--set-upstream']);
+            await (0, utils_1.createPullRequest)(branchName, wpVersion);
+        }
+        else {
+            await git.add('.');
+            await git.commit(`Update WordPress 'Tested up to' version to ${wpVersion}`);
+            await git.push();
+        }
         core.setOutput('updated', 'true');
     }
     catch (error) {

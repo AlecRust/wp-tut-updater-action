@@ -27,11 +27,10 @@ jest.mock('simple-git', () => ({
 describe('action', () => {
   beforeEach(() => {
     jest.resetAllMocks()
-    process.env['GITHUB_WORKSPACE'] = '/github/workspace'
-    process.env['INPUT_FILE_PATHS'] = 'readme.txt\nanother-file.txt'
   })
 
   it('completes after updating files', async () => {
+    mocked(core.getInput).mockReturnValueOnce('true')
     mocked(core.getInput).mockReturnValueOnce('readme.txt\nanother-file.txt')
     mocked(getLatestWpVersion).mockResolvedValueOnce('5.9')
     mocked(updateFiles).mockResolvedValueOnce(true)
@@ -47,6 +46,7 @@ describe('action', () => {
   })
 
   it('completes with no updates needed', async () => {
+    mocked(core.getInput).mockReturnValueOnce('true')
     mocked(core.getInput).mockReturnValueOnce('readme.txt\nanother-file.txt')
     mocked(getLatestWpVersion).mockResolvedValueOnce('5.9')
     mocked(updateFiles).mockResolvedValueOnce(false)
@@ -61,6 +61,7 @@ describe('action', () => {
 
   it('handles errors gracefully', async () => {
     const error = new Error('An unexpected error')
+    mocked(core.getInput).mockReturnValueOnce('true')
     mocked(core.getInput).mockReturnValueOnce('readme.txt')
     mocked(getLatestWpVersion).mockRejectedValueOnce(error)
 

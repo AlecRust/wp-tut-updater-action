@@ -1,8 +1,4 @@
-# WordPress "Tested up to" Updater
-
-[![Lint](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/ci.yml/badge.svg)
-[![CodeQL](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml)
+# WordPress "Tested up to" Updater [![Lint](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter) ![CI](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/ci.yml/badge.svg) [![CodeQL](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml)
 
 > Automate "Tested up to" version updates in your WordPress projects.
 
@@ -65,6 +61,18 @@ Optionally you can specify paths to update which will override the default
     file-paths: |
       readme.txt
       my-other-file.php
+```
+
+If you want the action to commit directly to your default branch, you can set
+`create-pr` to `false`:
+
+```yaml
+- name: Run wp-tut-updater-action
+  uses: AlecRust/wp-tut-updater-action@v1.0.0
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  with:
+    create-pr: false
 ```
 
 Please note you should thoroughly test your plugin/theme with the new version of
