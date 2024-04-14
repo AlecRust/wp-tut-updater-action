@@ -8,7 +8,7 @@
 Creates a pull request to update the "Tested up to" version of your WordPress
 plugin or theme if it's out of date.
 
-## Usage
+## Example
 
 First, enable the "Allow GitHub Actions to create and approve pull requests"
 option in your repository at **Settings > Actions > General**.
@@ -16,7 +16,7 @@ option in your repository at **Settings > Actions > General**.
 Here's a basic example of running this action on a cron. `permissions` and
 `env.GITHUB_TOKEN` are required for the action to create a pull request.
 
-`.github/workflows/weekly-tut-check.yml`:
+`.github/workflows/tut-check.yml`:
 
 ```yaml
 on:
