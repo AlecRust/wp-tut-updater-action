@@ -1,3 +1,4 @@
+<!-- markdownlint-disable-next-line MD013 -->
 # WordPress "Tested up to" Updater [![Lint](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter) ![CI](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/ci.yml/badge.svg) [![CodeQL](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AlecRust/wp-tut-updater-action/actions/workflows/codeql-analysis.yml)
 
 > Automate "Tested up to" version updates in your WordPress projects.
@@ -7,8 +8,7 @@ WordPress version then updates the "Tested up to" version of your WordPress
 plugin or theme if it's out of date.
 
 Run it based on a cron or manually via the Actions tab. Have the action create a
-pull request for you to review and merge, or allow it to commit directly to your
-default branch.
+pull request, or allow it to commit directly to your default branch.
 
 Never forget to update the "Tested up to" version of your WordPress plugin or
 theme again!
@@ -34,13 +34,13 @@ permissions:
   pull-requests: write
 
 jobs:
-  check-tested-up-to:
+  update-tested-up-to:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check for new "Tested up to" version
+      - name: Update "Tested up to" version
         uses: AlecRust/wp-tut-updater-action@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,7 +53,7 @@ Optionally you can specify paths to update which will override the default
 `readme.txt` file:
 
 ```yaml
-- name: Run wp-tut-updater-action
+- name: Update "Tested up to" version
   uses: AlecRust/wp-tut-updater-action@v1.0.0
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,11 +63,11 @@ Optionally you can specify paths to update which will override the default
       my-other-file.php
 ```
 
-If you want the action to commit directly to your default branch, you can set
+Optionally the action can commit directly to your default branch by setting
 `create-pr` to `false`:
 
 ```yaml
-- name: Run wp-tut-updater-action
+- name: Update "Tested up to" version
   uses: AlecRust/wp-tut-updater-action@v1.0.0
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
