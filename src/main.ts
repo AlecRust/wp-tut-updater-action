@@ -27,6 +27,7 @@ export async function run(): Promise<void> {
       return
     }
 
+    console.log('Updating files to WordPress version', wpVersion)
     const branchName = `update-wp-versions-${new Date().getTime()}`
     await git.addConfig('user.email', 'action@github.com')
     await git.addConfig('user.name', 'GitHub Action')

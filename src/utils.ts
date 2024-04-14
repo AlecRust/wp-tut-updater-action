@@ -36,7 +36,6 @@ export async function updateFiles(
   filePaths: string[],
   newWpVersion: string
 ): Promise<boolean> {
-  console.log('Updating files to WordPress version', newWpVersion)
   let updated = false
   for (const relativePath of filePaths) {
     const filePath = path.resolve(basePath, relativePath)

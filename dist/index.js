@@ -37656,6 +37656,7 @@ async function run() {
             core.setOutput('updated', 'false');
             return;
         }
+        console.log('Updating files to WordPress version', wpVersion);
         const branchName = `update-wp-versions-${new Date().getTime()}`;
         await git.addConfig('user.email', 'action@github.com');
         await git.addConfig('user.name', 'GitHub Action');
@@ -37739,7 +37740,6 @@ exports.getLatestWpVersion = getLatestWpVersion;
  * Update the 'Tested up to' version in the specified files.
  */
 async function updateFiles(basePath, filePaths, newWpVersion) {
-    console.log('Updating files to WordPress version', newWpVersion);
     let updated = false;
     for (const relativePath of filePaths) {
         const filePath = path.resolve(basePath, relativePath);
