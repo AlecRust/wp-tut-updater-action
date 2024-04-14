@@ -1,0 +1,22 @@
+name: 'WP up to updater'
+description:
+  'Automatically updates the "Tested up to" strings in WordPress plugin files
+  based on the latest versions of WordPress.'
+author: 'Alec Rust'
+
+branding:
+  icon: 'heart'
+  color: 'blue'
+
+inputs:
+  file-paths:
+    description: 'File paths where the "Tested up to" string should be updated.'
+    default: 'readme.txt'
+
+outputs:
+  updated:
+    description: 'Indicates whether any files were updated (true or false).'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
