@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Update "Tested up to" version
-        uses: AlecRust/wp-tut-updater-action@v1.1.0
+        uses: AlecRust/wp-tut-updater-action@v1.1.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -54,7 +54,7 @@ file:
 
 ```yaml
 - name: Update "Tested up to" version
-  uses: AlecRust/wp-tut-updater-action@v1.1.0
+  uses: AlecRust/wp-tut-updater-action@v1.1.1
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
@@ -68,7 +68,7 @@ Optionally the action can commit directly to your default branch by setting
 
 ```yaml
 - name: Update "Tested up to" version
-  uses: AlecRust/wp-tut-updater-action@v1.1.0
+  uses: AlecRust/wp-tut-updater-action@v1.1.1
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:

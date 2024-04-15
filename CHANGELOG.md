@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.1.1](https://github.com/AlecRust/wp-tut-updater-action/releases/tag/v1.1.1)
+
+> 15 April 2024
+
+- Add husky/lint-staged [`d9b91f2`](https://github.com/AlecRust/wp-tut-updater-action/commit/d9b91f299c379c8656c18e0c750a40a9bab4282c)
+- Fix Git author not set when committing directly [`38d9cf1`](https://github.com/AlecRust/wp-tut-updater-action/commit/38d9cf1e75584c6276f358171534fd6c09487ecd)
+- Tidy README [`64b82a0`](https://github.com/AlecRust/wp-tut-updater-action/commit/64b82a0339bb51512b76b5b3734312b9b5d6c32c)
+
 ## [v1.1.0](https://github.com/AlecRust/wp-tut-updater-action/releases/tag/v1.1.0)
 
 > 14 April 2024
