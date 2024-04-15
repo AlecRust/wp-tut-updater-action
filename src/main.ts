@@ -26,11 +26,9 @@ export async function run(): Promise<void> {
     }
 
     console.log(`Updated to WordPress ${wpVersion}, committing changes...`)
-
+    const commitMessage = `Update WordPress 'Tested up to' version to ${wpVersion}`
     await git.addConfig('user.email', 'action@github.com')
     await git.addConfig('user.name', 'GitHub Action')
-
-    const commitMessage = `Update WordPress 'Tested up to' version to ${wpVersion}`
     if (createPR) {
       const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`
       await git.checkoutLocalBranch(branchName)
