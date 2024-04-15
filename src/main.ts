@@ -12,40 +12,35 @@ export async function run(): Promise<void> {
   try {
     const workspace = process.env.GITHUB_WORKSPACE as string
     const createPR = core.getInput('create-pr') === 'true'
-    git.cwd(workspace)
-
     const filePathInput = core.getInput('file-paths')
     const filePaths = filePathInput
       .split(/\r?\n/)
       .filter(path => path.trim() !== '')
-    console.log('Checking paths:', filePaths)
 
     const wpVersion = await getLatestWpVersion()
-    const updated = await updateFiles(workspace, filePaths, wpVersion)
-    if (!updated) {
+    const filesUpdated = await updateFiles(workspace, filePaths, wpVersion)
+    if (!filesUpdated) {
       console.log('No updates are needed.')
       core.setOutput('updated', 'false')
       return
     }
 
-    console.log(`Updated to WordPress version ${wpVersion}`)
+    console.log(`Updated to WordPress ${wpVersion}, committing changes...`)
 
+    await git.addConfig('user.email', 'action@github.com')
+    await git.addConfig('user.name', 'GitHub Action')
+
+    const commitMessage = `Update WordPress 'Tested up to' version to ${wpVersion}`
     if (createPR) {
       const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`
-      await git.addConfig('user.email', 'action@github.com')
-      await git.addConfig('user.name', 'GitHub Action')
       await git.checkoutLocalBranch(branchName)
       await git.add('.')
-      await git.commit(
-        `Update WordPress 'Tested up to' version to ${wpVersion}`
-      )
+      await git.commit(commitMessage)
       await git.push('origin', branchName, ['--set-upstream'])
       await createPullRequest(branchName, wpVersion)
     } else {
       await git.add('.')
-      await git.commit(
-        `Update WordPress 'Tested up to' version to ${wpVersion}`
-      )
+      await git.commit(commitMessage)
       await git.push()
     }
 

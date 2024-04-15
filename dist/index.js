@@ -37644,33 +37644,32 @@ async function run() {
     try {
         const workspace = process.env.GITHUB_WORKSPACE;
         const createPR = core.getInput('create-pr') === 'true';
-        git.cwd(workspace);
         const filePathInput = core.getInput('file-paths');
         const filePaths = filePathInput
             .split(/\r?\n/)
             .filter(path => path.trim() !== '');
-        console.log('Checking paths:', filePaths);
         const wpVersion = await (0, utils_1.getLatestWpVersion)();
-        const updated = await (0, utils_1.updateFiles)(workspace, filePaths, wpVersion);
-        if (!updated) {
+        const filesUpdated = await (0, utils_1.updateFiles)(workspace, filePaths, wpVersion);
+        if (!filesUpdated) {
             console.log('No updates are needed.');
             core.setOutput('updated', 'false');
             return;
         }
-        console.log(`Updated to WordPress version ${wpVersion}`);
+        console.log(`Updated to WordPress ${wpVersion}, committing changes...`);
+        await git.addConfig('user.email', 'action@github.com');
+        await git.addConfig('user.name', 'GitHub Action');
+        const commitMessage = `Update WordPress 'Tested up to' version to ${wpVersion}`;
         if (createPR) {
             const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`;
-            await git.addConfig('user.email', 'action@github.com');
-            await git.addConfig('user.name', 'GitHub Action');
             await git.checkoutLocalBranch(branchName);
             await git.add('.');
-            await git.commit(`Update WordPress 'Tested up to' version to ${wpVersion}`);
+            await git.commit(commitMessage);
             await git.push('origin', branchName, ['--set-upstream']);
             await (0, utils_1.createPullRequest)(branchName, wpVersion);
         }
         else {
             await git.add('.');
-            await git.commit(`Update WordPress 'Tested up to' version to ${wpVersion}`);
+            await git.commit(commitMessage);
             await git.push();
         }
         core.setOutput('updated', 'true');
@@ -37748,10 +37747,12 @@ exports.getLatestWpVersion = getLatestWpVersion;
  * Update the 'Tested up to' version in the specified files.
  */
 async function updateFiles(basePath, filePaths, newWpVersion) {
+    console.log(`Checking paths: ${filePaths}`);
     let updated = false;
     for (const relativePath of filePaths) {
         const filePath = path.resolve(basePath, relativePath);
         const content = await fs.promises.readFile(filePath, 'utf8');
+        // Update 'Tested up to' accounting for whitespace
         const newContent = content.replace(/(Tested up to:\s+)\S+/g, `$1${newWpVersion}`);
         if (newContent !== content) {
             console.log(`Updating file: ${relativePath}`);

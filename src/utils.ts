@@ -36,10 +36,13 @@ export async function updateFiles(
   filePaths: string[],
   newWpVersion: string
 ): Promise<boolean> {
+  console.log(`Checking paths: ${filePaths}`)
   let updated = false
   for (const relativePath of filePaths) {
     const filePath = path.resolve(basePath, relativePath)
     const content = await fs.promises.readFile(filePath, 'utf8')
+
+    // Update 'Tested up to' accounting for whitespace
     const newContent = content.replace(
       /(Tested up to:\s+)\S+/g,
       `$1${newWpVersion}`
