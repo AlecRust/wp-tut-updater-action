@@ -10,19 +10,15 @@
 WordPress version then updates the "Tested up to" version of your WordPress
 plugin or theme if it's out of date.
 
-Run it based on a cron or manually via the Actions tab. Have the action create a
-pull request, or allow it to commit directly to your default branch.
+Run it based on a cron or trigger it manually. Have the action create a pull
+request, or allow it to commit directly to the default branch.
 
 Never forget to update the "Tested up to" version of your WordPress plugin or
 theme again!
 
 ## Example
 
-First enable the "Allow GitHub Actions to create and approve pull requests"
-option in your repository at **Settings > Actions > General**.
-
-Below is a minimal example of running the action based on a cron. `permissions`
-and `env.GITHUB_TOKEN` are required for the action to create a pull request.
+Here's a minimal example of running the action based on a cron schedule.
 
 `.github/workflows/tut-check.yml`:
 
@@ -49,11 +45,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-**Note:** No need to create a new `GITHUB_TOKEN` secret, just ensure it's set as
-provided in the example.
+**Note:** `permissions`, `env.GITHUB_TOKEN` and the "Allow GitHub Actions to
+create and approve pull requests" repository option are required for the action
+to create pull requests.
 
-Optionally you can specify paths to update which will override the default
-`readme.txt` file:
+Optionally specify paths to update which will override the default `readme.txt`
+file:
 
 ```yaml
 - name: Update "Tested up to" version
@@ -78,7 +75,7 @@ Optionally the action can commit directly to your default branch by setting
     create-pr: false
 ```
 
-Please note you should thoroughly test your plugin/theme with the new version of
+Please remember to thoroughly test your plugin/theme with the new version of
 WordPress before publishing an updated "Tested up to" version.
 
 ## License
