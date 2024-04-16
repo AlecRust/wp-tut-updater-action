@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.2.0](https://github.com/AlecRust/wp-tut-updater-action/releases/tag/v1.2.0)
+
+> 16 April 2024
+
+- Fix remote branch detection [`610e5de`](https://github.com/AlecRust/wp-tut-updater-action/commit/610e5decaed0aa6b49addeb7edab5ed474f8d818)
+- Bump development dependencies [`d5d3858`](https://github.com/AlecRust/wp-tut-updater-action/commit/d5d385859303deca7c88677400338ac9e88f15d0)
+- Prevent creating PR if one already exist [`3d2a278`](https://github.com/AlecRust/wp-tut-updater-action/commit/3d2a2781ff3cc4c0dd840a6ab692a1dc7a12ad3d)
+- Add git-author option [`147caa6`](https://github.com/AlecRust/wp-tut-updater-action/commit/147caa64f957785860dae74732b3843623bde09e)
+- Improve tests [`0fd68a1`](https://github.com/AlecRust/wp-tut-updater-action/commit/0fd68a110f7f3de3098a7b661b3c7861f7657f75)
+- Improve GitHub release title [`7dd97c7`](https://github.com/AlecRust/wp-tut-updater-action/commit/7dd97c78a2bcad210ed3b55800a2b27ceebb2e61)
+
 ## [v1.1.1](https://github.com/AlecRust/wp-tut-updater-action/releases/tag/v1.1.1)
 
 > 15 April 2024

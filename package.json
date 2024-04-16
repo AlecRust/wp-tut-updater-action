@@ -1,7 +1,7 @@
 {
   "name": "wp-tut-updater-action",
   "description": "Automate updating your WordPress plugin/theme \"Tested up to\" version.",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": "Alec Rust (https://www.alecrust.com/)",
   "private": true,
   "homepage": "https://github.com/AlecRust/wp-tut-updater-action",

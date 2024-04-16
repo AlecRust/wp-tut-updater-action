@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Update "Tested up to" version
-        uses: AlecRust/wp-tut-updater-action@v1.1.1
+        uses: AlecRust/wp-tut-updater-action@v1.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -52,7 +52,7 @@ to create pull requests.
 See [action.yml](action.yml) for detailed information on the action's inputs.
 
 ```yaml
-- uses: AlecRust/wp-tut-updater-action@v1.1.1
+- uses: AlecRust/wp-tut-updater-action@v1.2.0
   with:
     # Paths to update (optional, default: readme.txt)
     file-paths: |
