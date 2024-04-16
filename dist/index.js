@@ -37665,7 +37665,14 @@ async function run() {
         await git.addConfig('user.email', authorEmail);
         await git.addConfig('user.name', authorName);
         if (createPR) {
+            await git.fetch(['--all']);
             const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`;
+            const branches = await git.branch();
+            if (branches?.all?.includes(`/${branchName}`)) {
+                console.log(`Branch '${branchName}' already exists.`);
+                core.setOutput('updated', 'false');
+                return;
+            }
             await git.checkoutLocalBranch(branchName);
             await git.add('.');
             await git.commit(commitMessage);

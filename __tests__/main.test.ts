@@ -17,6 +17,8 @@ jest.mock('../src/utils')
 jest.mock('simple-git', () => {
   const mockGit = {
     addConfig: jest.fn(),
+    fetch: jest.fn(),
+    branch: jest.fn(),
     checkoutLocalBranch: jest.fn(),
     add: jest.fn(),
     commit: jest.fn(),
@@ -48,6 +50,9 @@ describe('action', () => {
     expect(core.getInput).toHaveBeenCalledWith('file-paths')
     expect(getLatestWpVersion).toHaveBeenCalled()
     expect(updateFiles).toHaveBeenCalled()
+
+    expect(mockGit.fetch).toHaveBeenCalled()
+    expect(mockGit.branch).toHaveBeenCalled()
     expect(mockGit.checkoutLocalBranch).toHaveBeenCalled()
     expect(mockGit.add).toHaveBeenCalledWith('.')
     expect(mockGit.commit).toHaveBeenCalled()
