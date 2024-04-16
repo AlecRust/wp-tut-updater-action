@@ -4,15 +4,12 @@
 
 <!-- markdownlint-enable -->
 
-> Automate "Tested up to" version updates in your WordPress projects.
+This [GitHub Action](https://github.com/features/actions) updates the "Tested up
+to" version of your WordPress plugin or theme if it doesn't match the latest
+version of WordPress.
 
-This [GitHub Action](https://github.com/features/actions) fetches the latest
-WordPress version then updates the "Tested up to" version of your WordPress
-plugin or theme if it's out of date.
-
-The action can create a pull request for the change, or commit directly to the
-default branch. Never forget to update the "Tested up to" version of your
-WordPress plugin or theme again!
+It can create a pull request for the change, or commit directly to the default
+branch. Never forget to update the "Tested up to" version again!
 
 ## Example
 
@@ -43,9 +40,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-**Note:** `permissions`, `env.GITHUB_TOKEN` and the "Allow GitHub Actions to
-create and approve pull requests" repository option are required for the action
-to create pull requests.
+Please note:
+
+- `permissions` section is always required in your workflow for the action to
+  write to the repository
+- "Allow GitHub Actions to create and approve pull requests" repository setting
+  is required to create pull requests
+- The pull request author is set by `GITHUB_TOKEN` which unless overridden will
+  be the GitHub Actions bot user
 
 ## Usage
 
@@ -64,8 +66,8 @@ See [action.yml](action.yml) for detailed information on the action's inputs.
     git-author: 'Joe Bloggs <joe.bloggs@example.com>'
 ```
 
-Please remember to thoroughly test your plugin/theme with the new version of
-WordPress before publishing an updated "Tested up to" version.
+Remember to test your plugin/theme with the new version of WordPress before
+publishing an updated "Tested up to" version!
 
 ## License
 
