@@ -6,15 +6,13 @@
 
 > Automate "Tested up to" version updates in your WordPress projects.
 
-[GitHub Action](https://github.com/features/actions) that fetches the latest
+This [GitHub Action](https://github.com/features/actions) fetches the latest
 WordPress version then updates the "Tested up to" version of your WordPress
 plugin or theme if it's out of date.
 
-Run it based on a cron or trigger it manually. Have the action create a pull
-request, or allow it to commit directly to the default branch.
-
-Never forget to update the "Tested up to" version of your WordPress plugin or
-theme again!
+The action can create a pull request for the change, or commit directly to the
+default branch. Never forget to update the "Tested up to" version of your
+WordPress plugin or theme again!
 
 ## Example
 
@@ -25,7 +23,7 @@ Here's a minimal example of running the action based on a cron schedule.
 ```yaml
 on:
   schedule:
-    - cron: '0 0 * * 0' # Every Sunday at midnight
+    - cron: '0 0 * * 0'
   workflow_dispatch:
 
 permissions:
@@ -49,30 +47,21 @@ jobs:
 create and approve pull requests" repository option are required for the action
 to create pull requests.
 
-Optionally specify paths to update which will override the default `readme.txt`
-file:
+## Usage
+
+See [action.yml](action.yml) for detailed information on the action's inputs.
 
 ```yaml
-- name: Update "Tested up to" version
-  uses: AlecRust/wp-tut-updater-action@v1.1.1
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+- uses: AlecRust/wp-tut-updater-action@v1.1.1
   with:
+    # Paths to update (optional, default: readme.txt)
     file-paths: |
       readme.txt
-      my-other-file.php
-```
-
-Optionally the action can commit directly to your default branch by setting
-`create-pr` to `false`:
-
-```yaml
-- name: Update "Tested up to" version
-  uses: AlecRust/wp-tut-updater-action@v1.1.1
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  with:
-    create-pr: false
+      src/other-file.php
+    # Create a pull request, or commit directly if disabled (optional, default: true)
+    create-pr: true
+    # Git author (optional, default: github-actions <github-actions@noreply.github.com>)
+    git-author: 'Joe Bloggs <joe.bloggs@example.com>'
 ```
 
 Please remember to thoroughly test your plugin/theme with the new version of

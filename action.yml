@@ -16,6 +16,10 @@ inputs:
     description:
       'Flag setting if a pull request should be created for the changes.'
     default: 'true'
+  git-author:
+    description:
+      'The name and email of the Git commit author in the format "name <email>".'
+    default: 'github-actions <github-actions@noreply.github.com>'
 
 outputs:
   updated:

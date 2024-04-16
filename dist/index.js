@@ -37648,6 +37648,11 @@ async function run() {
         const filePaths = filePathInput
             .split(/\r?\n/)
             .filter(path => path.trim() !== '');
+        const authorInput = core.getInput('git-author');
+        const [authorName, authorEmail] = authorInput.match(/^(.+) <(.+)>$/) || [];
+        if (!authorName || !authorEmail) {
+            throw new Error('Invalid git-author input format. Expected format: "name <email>".');
+        }
         const wpVersion = await (0, utils_1.getLatestWpVersion)();
         const filesUpdated = await (0, utils_1.updateFiles)(workspace, filePaths, wpVersion);
         if (!filesUpdated) {
@@ -37657,8 +37662,8 @@ async function run() {
         }
         console.log(`Updated to WordPress ${wpVersion}, committing changes...`);
         const commitMessage = `Update WordPress 'Tested up to' version to ${wpVersion}`;
-        await git.addConfig('user.email', 'action@github.com');
-        await git.addConfig('user.name', 'GitHub Action');
+        await git.addConfig('user.email', authorEmail);
+        await git.addConfig('user.name', authorName);
         if (createPR) {
             const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`;
             await git.checkoutLocalBranch(branchName);

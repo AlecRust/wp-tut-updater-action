@@ -39,6 +39,7 @@ describe('action', () => {
   it('completes after updating files and creates PR when create-pr is true', async () => {
     mocked(core.getInput).mockReturnValueOnce('true') // create-pr is true
     mocked(core.getInput).mockReturnValueOnce('readme.txt\nanother-file.txt')
+    mocked(core.getInput).mockReturnValueOnce('Test Name <email@example.com>')
     mocked(getLatestWpVersion).mockResolvedValueOnce('5.9')
     mocked(updateFiles).mockResolvedValueOnce(true)
 
@@ -60,6 +61,7 @@ describe('action', () => {
   it('completes after updating files and pushes to main branch when create-pr is false', async () => {
     mocked(core.getInput).mockReturnValueOnce('false') // create-pr is false
     mocked(core.getInput).mockReturnValueOnce('readme.txt\nanother-file.txt')
+    mocked(core.getInput).mockReturnValueOnce('Test Name <email@example.com>')
     mocked(getLatestWpVersion).mockResolvedValueOnce('5.9')
     mocked(updateFiles).mockResolvedValueOnce(true)
 
@@ -81,6 +83,7 @@ describe('action', () => {
   it('completes with no updates needed', async () => {
     mocked(core.getInput).mockReturnValueOnce('true')
     mocked(core.getInput).mockReturnValueOnce('readme.txt\nanother-file.txt')
+    mocked(core.getInput).mockReturnValueOnce('Test Name <email@example.com>')
     mocked(getLatestWpVersion).mockResolvedValueOnce('5.9')
     mocked(updateFiles).mockResolvedValueOnce(false)
 
@@ -96,6 +99,7 @@ describe('action', () => {
     const error = new Error('An unexpected error')
     mocked(core.getInput).mockReturnValueOnce('true')
     mocked(core.getInput).mockReturnValueOnce('readme.txt')
+    mocked(core.getInput).mockReturnValueOnce('Test Name <email@example.com>')
     mocked(getLatestWpVersion).mockRejectedValueOnce(error)
 
     await run()
