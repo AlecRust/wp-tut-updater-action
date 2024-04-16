@@ -42,7 +42,7 @@ export async function run(): Promise<void> {
       await git.fetch(['--all'])
       const branchName = `tested-up-to-${wpVersion.replace(/\./g, '-')}`
       const branches = await git.branch()
-      if (branches?.all?.includes(`/${branchName}`)) {
+      if (branches?.all.includes(`remotes/origin/${branchName}`)) {
         console.log(`Branch '${branchName}' already exists.`)
         core.setOutput('updated', 'false')
         return
