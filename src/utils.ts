@@ -20,7 +20,7 @@ export async function getLatestWpVersion(): Promise<string> {
     if (!latestMinor) {
       throw new Error('Failed to parse latest WordPress version')
     }
-    console.log('Latest WordPress minor version:', latestMinor)
+    console.log('Latest WordPress version:', latestMinor)
     return latestMinor
   } catch (error) {
     console.error('Failed to fetch latest WordPress version:', error)

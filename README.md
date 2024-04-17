@@ -5,15 +5,16 @@
 <!-- markdownlint-enable -->
 
 This [GitHub Action](https://github.com/features/actions) updates the "Tested up
-to" version of your WordPress plugin or theme if it doesn't match the latest
+to" version in WordPress plugins or themes if it doesn't match the latest
 version of WordPress.
 
 It can create a pull request for the change, or commit directly to the default
-branch. Never forget to update the "Tested up to" version again!
+branch. Never forget to update your "Tested up to" version again!
 
 ## Example
 
-Here's a minimal example of running the action based on a cron schedule.
+Here's a minimal example running the action based on a cron schedule. It will
+create a pull request by default.
 
 `.github/workflows/tut-check.yml`:
 
@@ -44,8 +45,8 @@ Please note:
 
 - `permissions` section is always required in your workflow for the action to
   write to the repository
-- "Allow GitHub Actions to create and approve pull requests" repository setting
-  is required to create pull requests
+- "Allow GitHub Actions to create and approve pull requests" setting is required
+  to create pull requests
 - The pull request author is set by `GITHUB_TOKEN` which unless overridden will
   be the GitHub Actions bot user
 
@@ -66,8 +67,8 @@ See [action.yml](action.yml) for detailed information on the action's inputs.
     git-author: 'Joe Bloggs <joe.bloggs@example.com>'
 ```
 
-Remember to test your plugin/theme with the new version of WordPress before
-publishing an updated "Tested up to" version!
+Remember to test your project with the latest version of WordPress before
+publishing a new version!
 
 ## License
 
