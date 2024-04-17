@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Update "Tested up to" version
-        uses: AlecRust/wp-tut-updater-action@v1.2.0
+        uses: AlecRust/wp-tut-updater-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -55,7 +55,7 @@ Please note:
 See [action.yml](action.yml) for detailed information on the action's inputs.
 
 ```yaml
-- uses: AlecRust/wp-tut-updater-action@v1.2.0
+- uses: AlecRust/wp-tut-updater-action@v1
   with:
     # Paths to update (optional, default: readme.txt)
     file-paths: |

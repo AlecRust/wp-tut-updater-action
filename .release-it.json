@@ -1,12 +1,8 @@
 {
-  "plugins": {
-    "@release-it/bumper": {
-      "out": ["README.md"]
-    }
-  },
   "hooks": {
     "before:init": "npm run all",
-    "after:bump": ["git-cliff -o CHANGELOG.md --tag v${version}"]
+    "after:bump": "git-cliff --config .cliff/cliff.toml -o CHANGELOG.md --tag v${version}",
+    "after:release": "./update-floating-tag.sh ${version}"
   },
   "git": {
     "commitArgs": ["-S"],
