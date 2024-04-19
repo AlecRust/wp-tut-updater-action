@@ -37737,6 +37737,7 @@ const octokit = new rest_1.Octokit({
 });
 /**
  * Fetch the latest WordPress minor version.
+ * @returns {Promise<string>} Resolves with the latest WordPress minor version.
  */
 async function getLatestWpVersion() {
     try {
@@ -37757,6 +37758,10 @@ async function getLatestWpVersion() {
 exports.getLatestWpVersion = getLatestWpVersion;
 /**
  * Update the 'Tested up to' version in the specified files.
+ * @param basePath The base path for the files.
+ * @param filePaths The paths of the files to update.
+ * @param newWpVersion The new WordPress version.
+ * @returns {Promise<boolean>} Resolves with true if any files were updated.
  */
 async function updateFiles(basePath, filePaths, newWpVersion) {
     console.log(`Checking paths: ${filePaths}`);
@@ -37777,6 +37782,9 @@ async function updateFiles(basePath, filePaths, newWpVersion) {
 exports.updateFiles = updateFiles;
 /**
  * Fetch the default branch for the repository.
+ * @param owner The owner of the repository.
+ * @param repo The name of the repository.
+ * @returns {Promise<string>} Resolves with the default branch name.
  */
 async function getDefaultBranch(owner, repo) {
     const { data } = await octokit.rest.repos.get({
@@ -37787,6 +37795,9 @@ async function getDefaultBranch(owner, repo) {
 }
 /**
  * Create a pull request for the changes.
+ * @param branchName The name of the pull request branch.
+ * @param wpVersion The new WordPress version.
+ * @returns {Promise<void>} Resolves when the pull request is created.
  */
 async function createPullRequest(branchName, wpVersion) {
     const title = `Update WordPress 'Tested up to' version to ${wpVersion}`;

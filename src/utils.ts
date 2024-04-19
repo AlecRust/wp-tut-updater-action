@@ -9,6 +9,7 @@ const octokit = new Octokit({
 
 /**
  * Fetch the latest WordPress minor version.
+ * @returns {Promise<string>} Resolves with the latest WordPress minor version.
  */
 export async function getLatestWpVersion(): Promise<string> {
   try {
@@ -30,6 +31,10 @@ export async function getLatestWpVersion(): Promise<string> {
 
 /**
  * Update the 'Tested up to' version in the specified files.
+ * @param basePath The base path for the files.
+ * @param filePaths The paths of the files to update.
+ * @param newWpVersion The new WordPress version.
+ * @returns {Promise<boolean>} Resolves with true if any files were updated.
  */
 export async function updateFiles(
   basePath: string,
@@ -59,6 +64,9 @@ export async function updateFiles(
 
 /**
  * Fetch the default branch for the repository.
+ * @param owner The owner of the repository.
+ * @param repo The name of the repository.
+ * @returns {Promise<string>} Resolves with the default branch name.
  */
 async function getDefaultBranch(owner: string, repo: string): Promise<string> {
   const { data } = await octokit.rest.repos.get({
@@ -70,6 +78,9 @@ async function getDefaultBranch(owner: string, repo: string): Promise<string> {
 
 /**
  * Create a pull request for the changes.
+ * @param branchName The name of the pull request branch.
+ * @param wpVersion The new WordPress version.
+ * @returns {Promise<void>} Resolves when the pull request is created.
  */
 export async function createPullRequest(
   branchName: string,
