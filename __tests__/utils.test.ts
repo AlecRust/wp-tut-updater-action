@@ -37,14 +37,10 @@ describe('utils', () => {
       expect(version).toBe('5.9')
     })
 
-    it('throws an error if the WordPress version cannot be parsed', async () => {
-      jest.spyOn(axios, 'get').mockResolvedValue({
-        data: { offers: [{ current: 'invalid' }] }
-      })
+    it('throws an error if the WordPress version cannot be determined', async () => {
+      jest.spyOn(axios, 'get').mockRejectedValue(new Error('Network error'))
 
-      await expect(utils.getLatestWpVersion()).rejects.toThrow(
-        'Failed to parse latest WordPress version'
-      )
+      await expect(utils.getLatestWpVersion()).rejects.toThrow('Network error')
     })
   })
 

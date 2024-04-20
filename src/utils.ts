@@ -13,18 +13,15 @@ const octokit = new Octokit({
  */
 export async function getLatestWpVersion(): Promise<string> {
   try {
-    const response = await axios.get(
+    const { data } = await axios.get(
       'https://api.wordpress.org/core/version-check/1.7/'
     )
-    const latestVersion = response.data?.offers?.[0]?.current
+    const latestVersion = data?.offers?.[0]?.current
     const latestMinor = latestVersion.match(/^\d+\.\d+/)?.[0]
-    if (!latestMinor) {
-      throw new Error('Failed to parse latest WordPress version')
-    }
     console.log('Latest WordPress version:', latestMinor)
     return latestMinor
   } catch (error) {
-    console.error('Failed to fetch latest WordPress version:', error)
+    console.error('Failed to determine latest WordPress version:', error)
     throw error
   }
 }
